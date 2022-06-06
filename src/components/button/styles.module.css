@@ -1,0 +1,23 @@
+.button {
+  composes: button from '../../styles/theme.module.css';
+}
+
+.danger {
+  composes: button from '../../styles/theme.module.css';
+  border-color: red;
+  color: red;
+}
+
+.disabled {
+  composes: button from '../../styles/theme.module.css';
+  border-color: #b8b8b8;
+  color: #b8b8b8;
+  cursor: not-allowed;
+}
+
+.primary {
+  composes: button from '../../styles/theme.module.css';
+  background-color: #0070c9;
+  border-color: #0070c9;
+  color: #fff;
+}

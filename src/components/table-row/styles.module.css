@@ -1,0 +1,5 @@
+.tableRow {}
+
+.tableRow:hover {
+  background-color: #fafafa;
+}

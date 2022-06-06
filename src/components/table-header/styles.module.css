@@ -1,0 +1,16 @@
+.srOnly {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.th {
+  text-align: left;
+  text-transform: uppercase;
+  border-top: solid 1px #e5e5e5;
+  border-bottom: solid 1px #e5e5e5;
+  padding: 0.5em 0;
+}
