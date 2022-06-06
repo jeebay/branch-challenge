@@ -1,10 +1,25 @@
-import { ApolloProvider, useQuery } from '@apollo/react-hooks';
-import ApolloClient, { gql } from 'apollo-boost';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import env from './env';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import './styles/reset.css';
+import { Dashboard } from './routes/dashboard';
+import { UserDetail } from './routes/user-detail';
 
 const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  },
   uri: env.GRAPHQL_ENDPOINT,
   request: (operation) => {
     operation.setContext({
@@ -15,34 +30,15 @@ const client = new ApolloClient({
   },
 });
 
-const ALL_USERS_QUERY = gql`
-  query {
-    allUsers {
-      email
-      name
-      role
-    }
-  }
-`;
-
 const App = () => {
-  const { loading, error, data } = useQuery(ALL_USERS_QUERY);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {JSON.stringify(error)}</p>;
-  }
-
   return (
-    <>
-      <h1>hiiiii</h1>
-      <pre>
-        <code>{JSON.stringify(data, null, 2)}</code>
-      </pre>
-    </>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Dashboard />} />
+        <Route path="/user/:id" element={<UserDetail />}></Route>
+        <Route path="*" element={<Navigate to="" />} />
+      </Routes>
+    </Router>
   );
 };
 
